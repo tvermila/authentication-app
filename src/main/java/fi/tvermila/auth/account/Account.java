@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 public class Account {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(unique = true, nullable = false)
   private String username;
-  
+
   @Column(nullable = false)
   private String password;
 
@@ -46,7 +46,7 @@ public class Account {
   private Boolean enabled = false;
 
   @Column(nullable = false)
-  private Date dateCreate = new Date();
+  private Date dateCreated = new Date();
 
   public Long getId() {
     return this.id;
@@ -123,5 +123,5 @@ public class Account {
   public void setDateCreate(final Date dateCreate) {
     this.dateCreate = dateCreate;
   }
-  
+
 }
