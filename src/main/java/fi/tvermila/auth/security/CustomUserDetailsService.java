@@ -15,16 +15,16 @@ import org.springframework.security.core.userdetails.User;
 public class CustomUserDetailsService implements UserDetailsService {
 
   @Autowired
-  AccountRepository accountRepository;
+  private AccountRepository accountRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Account user = accountRepository.findByUsername(username);
-    if (user == null) {
+    Account account = accountRepository.findByUsername(username);
+    if (account == null) {
       throw new UsernameNotFoundException(username);
     }
-    UserDetails userDetails = User.withUsername(user.getUsername()).password(user.getPassword())
-        .authorities(user.getRole().name()).build();
+    UserDetails userDetails = User.withUsername(account.getUsername())
+        .password(account.getPassword()).roles(account.getRole().name()).build();
     return userDetails;
   }
 

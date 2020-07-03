@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import fi.tvermila.auth.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -21,17 +20,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/**").hasRole("USER").and().formLogin().and().logout();
+    http.authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll();
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(customUserDetailsService);
+    auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
   }
-
-  // @Bean
-  // public PasswordEncoder passwordEncoder() {
-  // return new BCryptPasswordEncoder();
-  // }
 
 }
