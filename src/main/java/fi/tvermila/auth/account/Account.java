@@ -45,8 +45,7 @@ public class Account {
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  @NonNull
-  private Role role;
+  private Role role = Role.USER;
 
   @Column(nullable = false)
   private Boolean enabled = false;

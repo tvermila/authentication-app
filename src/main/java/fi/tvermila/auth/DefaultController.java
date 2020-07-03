@@ -9,6 +9,6 @@ public class DefaultController {
   @GetMapping(value="/")
   public String getMethodName() {
       return "home";
-  }  
+  }
   
 }

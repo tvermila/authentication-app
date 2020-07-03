@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import fi.tvermila.auth.account.AccountRepository;
-import fi.tvermila.auth.role.Role;
 import fi.tvermila.auth.account.Account;
 
 @Component
@@ -26,7 +25,7 @@ public class DataLoader implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) throws Exception {
     List<Account> accounts = new ArrayList<>();
-    accounts.add(new Account("keke", passwordEncoder.encode("passu"), Role.USER));
+    accounts.add(new Account("keke", passwordEncoder.encode("passu")));
     accountRepository.saveAll(accounts);
 
   }
